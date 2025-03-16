@@ -1,0 +1,11 @@
+groups:
+  - name: mysql_alerts
+    rules:
+      - alert: HighThreadsConnected
+        expr: mysql_global_status_threads_connected > 1
+        for: 0m  # Alert will trigger only if the condition persists for 2 minutes
+        labels:
+          severity: critical
+        annotations:
+          summary: "High number of MySQL connections"
+          description: "Number of connected threads is {{ $value }} (threshold: 10)."
